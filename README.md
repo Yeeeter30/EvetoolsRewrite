@@ -1,16 +1,17 @@
-
 # Evetools Rewrite 
+Version 1.8.5
 
 # All of our Commands
 /help
 /repeat
 /kick
 /ban
+/createrole
+/deleterole
+/purge
 /ping
 /coinflip
 /randomnum
-/createrole
-/deleterole
 /uptime
 
 # Made by YieldingRS
