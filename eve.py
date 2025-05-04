@@ -104,24 +104,6 @@ async def banerr(ctx, error):
     if isinstance(error, commands.MissingPermissions):
         await ctx.respond("No permissions.")
 
-# Temp Ban
-@bot.slash_command(name="tempban", description="Temporary ban a user.")
-async def tempban(ctx, user: discord.Option(discord.Member, "Select a user"), reason: discord.Option(str, "Send a reason"), length: discord.Option(int, "Length")):
-    await ctx.respond(f"Temp Banned {user.name}")
-    await user.send(f"you have been Temporarily banned from {ctx.guild.name} for {reason}")
-    await user.ban(reason=reason, delete_message_days=7)
-    await asyncio.sleep(length)
-    try:
-        await ctx.guild.unban(user)
-    except:
-        pass
-
-# Temp ban error
-@tempban.error
-async def temperr(ctx, error):
-    if isinstance(error, commands.MissingPermissions):
-        await ctx.respond("No permissions.")
-
 # purge messages
 @bot.slash_command(name="purge", description="purge the channel were in")
 @commands.has_permissions(manage_messages=True)
