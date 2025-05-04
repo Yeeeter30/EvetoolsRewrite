@@ -52,11 +52,12 @@ async def help1(ctx):
 /repeat
 /kick
 /ban
+/createrole
+/deleterole
+/purge
 /ping
 /coinflip
 /randomnum
-/createrole
-/deleterole
 /uptime
 /shutdown (OWNER ONLY)
     """, inline=False)
@@ -118,6 +119,19 @@ async def tempban(ctx, user: discord.Option(discord.Member, "Select a user"), re
 # Temp ban error
 @tempban.error
 async def temperr(ctx, error):
+    if isinstance(error, commands.MissingPermissions):
+        await ctx.respond("No permissions.")
+
+# purge messages
+@bot.slash_command(name="purge", description="purge the channel were in")
+@commands.has_permissions(manage_messages=True)
+async def purge(ctx, amount: discord.Option(int, "The ammount of messages")):
+    messagepurge = await ctx.channel.purge(limit=amount)
+    await ctx.respond(f"Purged {len(messagepurge)} messages")
+    
+# purge error
+@purge.error
+async def purgeerr(ctx, error):
     if isinstance(error, commands.MissingPermissions):
         await ctx.respond("No permissions.")
 
